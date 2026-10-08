@@ -10,6 +10,9 @@ const products = [
   { value: "pos-desktop", label: "POS (Desktop App)", labelAr: "نقاط البيع (تطبيق سطح المكتب)" },
   { value: "pos-app", label: "POS (App)", labelAr: "نقاط البيع (تطبيق)" },
   { value: "pos-web", label: "POS (Web)", labelAr: "نقاط البيع (ويب)" },
+  { value: "user-app", label: "User (App)", labelAr: "مستخدم (تطبيق)" },
+  { value: "user-web", label: "User (Web)", labelAr: "مستخدم (ويب)" },
+
 ];
 
 // Text used inside the proposal document itself (preview + PDF)
