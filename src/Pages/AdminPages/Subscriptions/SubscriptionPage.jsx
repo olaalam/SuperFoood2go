@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import {Wroning,DeleteIcon,EditIcon} from '../../../Components/Icons/AllIcons';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { MdCheck } from "react-icons/md";
+import SubscriptionStatusPanel from './SubscriptionStatusPanel';
 
 const SubscriptionPage = () => {
 
@@ -98,6 +99,7 @@ const SubscriptionPage = () => {
     if (!users) {
         return(
                 <>
+                <SubscriptionStatusPanel />
                 <div className='text-mainColor text-2xl font-bold w-full h-full flex items-center justify-center'>No Subscriptions data available</div>
                 <div className='w-2/6 lg:w-1/6'>
                 <Link to={'add'}>
@@ -111,6 +113,7 @@ const SubscriptionPage = () => {
        return (
               <>
               <div className='w-full flex flex-col gap-10'>
+                     <SubscriptionStatusPanel />
                      <div className='w-2/6 lg:w-1/6'>
                      <Link to={'add'}>
                             <ButtonAdd isWidth="true" BgColor ="mainColor" Color="white" iconColor="white"/>

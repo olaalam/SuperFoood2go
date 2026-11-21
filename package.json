@@ -16,6 +16,7 @@
     "aos": "^2.3.4",
     "axios": "^1.7.7",
     "chart.js": "^4.4.6",
+    "core-js": "^3.51.0",
     "i": "^0.3.7",
     "i18next": "^24.0.0",
     "i18next-browser-languagedetector": "^8.0.0",
