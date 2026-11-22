@@ -71,6 +71,7 @@ import { UserLayout,UserHomeLayout ,
 import Login from "./Pages/RegisterPages/Login.jsx";
 import SignUpPage from "./Pages/RegisterPages/SignUpPage.jsx";
 import SubscriptionLayout from "./Layouts/AdminLayouts/SubscriptionLayout.jsx";
+import SubscriptionOrdersCountPage from "./Pages/AdminPages/Subscriptions/SubscriptionOrdersCountPage.jsx";
 import { CartPage } from "./Pages/AllPages.js";
 import EmailVerification from "./Pages/RegisterPages/EmailVerification.jsx";
 import FeaturesPage from "./Pages/PublicPages/OurFeatureData.jsx";
@@ -244,6 +245,10 @@ export const router = createBrowserRouter([
               {
                 path:'',
                 element: <SubscriptionLayout/>,
+              },
+              {
+                path:'orders/:restaurantId',
+                element: <SubscriptionOrdersCountPage/>,
               },
               {
                 path:'add',
