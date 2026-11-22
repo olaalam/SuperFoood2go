@@ -28,11 +28,12 @@ const getRestaurantStatus = (restaurant) => {
   return value === true || value === 1 || value === "1" || value === "true";
 };
 
-const SubscriptionStatusPanel = () => {
+const SubscriptionStatusPage = () => {
   const auth = useAuth();
   const [restaurants, setRestaurants] = useState([]);
   const [isLoadingRestaurants, setIsLoadingRestaurants] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
+  const [search, setSearch] = useState("");
   const token = auth.user?.token;
   const toastError = auth.toastError;
   const toastSuccess = auth.toastSuccess;
@@ -88,6 +89,21 @@ const SubscriptionStatusPanel = () => {
     }
   };
 
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    const name =
+      restaurant.name ??
+      restaurant.restaurant_name ??
+      restaurant.store_name ??
+      restaurant.user?.name ??
+      "";
+    const id = restaurant.id ?? restaurant.restaurant_id ?? restaurant.store_id;
+    const query = search.trim().toLocaleLowerCase();
+    return (
+      name.toLocaleLowerCase().includes(query) ||
+      String(id ?? "").includes(query)
+    );
+  });
+
   return (
     <section className="mb-10 flex w-full flex-col gap-8 rounded-lg bg-white p-4 shadow-sm sm:p-6">
       <div>
@@ -103,7 +119,18 @@ const SubscriptionStatusPanel = () => {
             No restaurant statuses available.
           </p>
         ) : (
-          <div className="w-full overflow-x-auto">
+          <div>
+            <label className="mb-4 block max-w-md">
+              <span className="sr-only">Search restaurants</span>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search restaurants by name or ID"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-mainColor focus:outline-none focus:ring-1 focus:ring-mainColor"
+              />
+            </label>
+            <div className="w-full overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b-2">
@@ -113,7 +140,7 @@ const SubscriptionStatusPanel = () => {
                 </tr>
               </thead>
               <tbody>
-                {restaurants.map((restaurant, index) => {
+                {filteredRestaurants.map((restaurant, index) => {
                   const id =
                     restaurant.id ?? restaurant.restaurant_id ?? restaurant.store_id;
                   const active = getRestaurantStatus(restaurant);
@@ -129,7 +156,7 @@ const SubscriptionStatusPanel = () => {
                           `Restaurant ${index + 1}`
                         ) : (
                           <Link
-                            to={`orders/${id}`}
+                            to={`../orders/${id}`}
                             state={{
                               restaurantName:
                                 restaurant.name ??
@@ -164,8 +191,16 @@ const SubscriptionStatusPanel = () => {
                     </tr>
                   );
                 })}
+                {filteredRestaurants.length === 0 && (
+                  <tr>
+                    <td colSpan="3" className="py-6 text-center text-gray-600">
+                      No restaurants match your search.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
+            </div>
           </div>
         )}
       </div>
@@ -174,4 +209,4 @@ const SubscriptionStatusPanel = () => {
   );
 };
 
-export default SubscriptionStatusPanel;
+export default SubscriptionStatusPage;

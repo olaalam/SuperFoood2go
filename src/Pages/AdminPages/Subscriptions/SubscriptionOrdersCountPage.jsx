@@ -30,31 +30,34 @@ const SubscriptionOrdersCountPage = () => {
   const [counts, setCounts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchOrdersCount = useCallback(async (startDate = "", endDate = "") => {
-    setIsLoading(true);
-    setCounts(null);
-    try {
-      const params = {};
-      if (startDate) params.date = startDate;
-      if (endDate) params.date_to = endDate;
+  const fetchOrdersCount = useCallback(
+    async (startDate = "", endDate = "") => {
+      setIsLoading(true);
+      setCounts(null);
+      try {
+        const params = {};
+        if (startDate) params.date = startDate;
+        if (endDate) params.date_to = endDate;
 
-      const response = await axios.get(
-        `${API_BASE}/orders_count/${restaurantId}`,
-        {
-          headers: { Authorization: `Bearer ${auth.user?.token}` },
-          params,
-        }
-      );
-      setCounts(response.data?.data ?? response.data);
-    } catch (error) {
-      console.error("Error fetching subscription order count:", error);
-      auth.toastError(
-        error.response?.data?.message || "Failed to load orders count."
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [auth.toastError, auth.user?.token, restaurantId]);
+        const response = await axios.get(
+          `${API_BASE}/orders_count/${restaurantId}`,
+          {
+            headers: { Authorization: `Bearer ${auth.user?.token}` },
+            params,
+          },
+        );
+        setCounts(response.data?.data ?? response.data);
+      } catch (error) {
+        console.error("Error fetching subscription order count:", error);
+        auth.toastError(
+          error.response?.data?.message || "Failed to load orders count.",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [auth.toastError, auth.user?.token, restaurantId],
+  );
 
   useEffect(() => {
     fetchOrdersCount();
@@ -81,9 +84,6 @@ const SubscriptionOrdersCountPage = () => {
           </h1>
           <p className="mt-1 text-gray-600">Orders summary</p>
         </div>
-        <p className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">
-          Restaurant ID: {restaurantId}
-        </p>
       </div>
 
       <form

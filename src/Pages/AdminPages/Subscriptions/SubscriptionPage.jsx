@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import {Wroning,DeleteIcon,EditIcon} from '../../../Components/Icons/AllIcons';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { MdCheck } from "react-icons/md";
-import SubscriptionStatusPanel from './SubscriptionStatusPanel';
 
 const SubscriptionPage = () => {
 
@@ -99,11 +98,16 @@ const SubscriptionPage = () => {
     if (!users) {
         return(
                 <>
-                <SubscriptionStatusPanel />
                 <div className='text-mainColor text-2xl font-bold w-full h-full flex items-center justify-center'>No Subscriptions data available</div>
-                <div className='w-2/6 lg:w-1/6'>
+                <div className='flex flex-wrap gap-3'>
                 <Link to={'add'}>
                         <ButtonAdd isWidth="true" BgColor ="mainColor" Color="white" iconColor="white"/>
+                </Link>
+                <Link
+                        to={'status'}
+                        className='inline-flex items-center justify-center rounded-lg border border-mainColor px-4 py-2 font-semibold text-mainColor hover:bg-mainColor hover:text-white'
+                >
+                        Restaurant Subscription Status
                 </Link>
                 </div>
                 </>
@@ -113,10 +117,15 @@ const SubscriptionPage = () => {
        return (
               <>
               <div className='w-full flex flex-col gap-10'>
-                     <SubscriptionStatusPanel />
-                     <div className='w-2/6 lg:w-1/6'>
+                     <div className='flex flex-wrap gap-3'>
                      <Link to={'add'}>
                             <ButtonAdd isWidth="true" BgColor ="mainColor" Color="white" iconColor="white"/>
+                     </Link>
+                     <Link
+                            to={'status'}
+                            className='inline-flex items-center justify-center rounded-lg border border-mainColor px-4 py-2 font-semibold text-mainColor hover:bg-mainColor hover:text-white'
+                     >
+                            Restaurant Subscription Status
                      </Link>
                      </div>
                      <div className="w-full flex items-center justify-between mt-4 overflow-x-auto">
